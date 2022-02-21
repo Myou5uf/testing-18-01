@@ -33,7 +33,7 @@
 # counter-clockwise
 
 import unittest
-from cherniaev import solve
+from program import solve
 
 
 CLOCK = 'clockwise'

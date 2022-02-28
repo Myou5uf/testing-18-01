@@ -47,7 +47,7 @@ def get_counter_spin(spin1: bool, spin2: bool):
     return UNDEFINED
 
 
-def solve(gear_count: int, connections: list[int]) -> list[str]:
+def solve(gear_count: int, connections):
     result = [UNDEFINED if i > 0 else CLOCK for i in range(0, gear_count)]
     for gear1, gear2 in connections:
         i, j = gear1 - 1, gear2 - 1
@@ -55,10 +55,9 @@ def solve(gear_count: int, connections: list[int]) -> list[str]:
             result[j] = get_counter_spin(result[i], result[j])
         if result[j] != UNDEFINED:
             result[i] = get_counter_spin(result[j], result[i])
-        # exit if spin is undefined
         if result[i] == UNDEFINED or result[j] == UNDEFINED:
             return []
-    return list(map(lambda x: 'clockwise' if x else 'counter-clockwise', result))
+    return ['clockwise' if x else 'counter-clockwise' for x in result ]
 
 
 def main():
@@ -66,11 +65,12 @@ def main():
     m = int(input())
     connections = []
     for _ in range(0, m):
-        i, j = map(lambda x: int(x), input().split(' '))
-        assert (i >= 1 and i <= n and j >= 1 and j <= n)
-        connections.append([i, j])
-
-    print(str.join('\n', solve(n, connections)))
+        x = input().split(' ')
+        if 1 <= int(x[0]) <=n and 1 <= int(x[1]) <= n:
+            connections.append([int(x[0]), int(x[1])])
+    result = solve(n, connections)
+    for r in result:
+        print(r)
 
 
 if __name__ == '__main__':

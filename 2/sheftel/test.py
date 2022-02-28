@@ -20,6 +20,5 @@ class MyTestCase(unittest.TestCase):
         self.assertIsInstance(task.solve(-5, []), str)
 
 
-
 if __name__ == '__main__':
     unittest.main()

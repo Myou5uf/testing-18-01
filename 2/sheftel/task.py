@@ -16,55 +16,76 @@
 # Выход: 0
 
 
+class Tree:
+    def __init__(self, data):
+        self.data = data
+        self.children = []
 
-"""def ladderLength(self, beginWord: str, endWord: str, wordList: List[str]) -> int:
-    wordList = set(wordList)
-    if endWord not in wordList:
-        return 0
-    que = [beginWord]
-    j = 0
-    while que:
-        j = j + 1
-        l = len(que)
-        while l:
-            curr = que[0]
-            del que[0]
-            for i in range(len(curr)):
-                for k in range(ord("a"), ord("z") + 1):
-                    new_word = curr[:i] + chr(k) + curr[i + 1:]
-                    if new_word == endWord:
-                        return j + 1
-                    if new_word in wordList:
-                        que.append(new_word)
-                        wordList.remove(new_word)
-            l = l - 1
-    return 0"""
+    def shortest_path(self, target):
+        path_list = [[self]]
+        path_index = 0
+        # To keep track of previously visited nodes
+        previous_nodes = {self}
+        if self == target:
+            return path_list[0]
+
+        while path_index < len(path_list):
+            current_path = path_list[path_index]
+            last_node = current_path[-1]
+            next_nodes = last_node.children
+
+            for next_node in next_nodes:
+                if next_node.data == target.data:
+                    current_path.append(target)
+                    return current_path
+                if next_node not in previous_nodes:
+                    new_path = current_path[:]
+                    new_path.append(next_node)
+                    path_list.append(new_path)
+                    previous_nodes.add(next_node)
+            path_index += 1
+        return []
 
 
 def solve(n, words):
-    que = [words[0]]
-    line = [words[0]]
-    target = words[1]
-    words = set(words)
-    j = 0
-    while que:
-        j = j + 1
-        l = len(que)
-        while l:
-            curr = que[0]
-            del que[0]
-            for i in range(len(curr)):
-                for k in range(ord("A"), ord("Z") + 1):
-                    new_word = curr[:i] + chr(k) + curr[i + 1:]
-                    if new_word == target:
-                        line.append(new_word)
-                        return j + 1, line
-                    if new_word in words:
-                        que.append(new_word)
-                        line.append(new_word)
-                        words.remove(new_word)
-            l = l - 1
-    return 0
+    if not isinstance(n, int):
+        raise TypeError("Value must be integer")
+    if not isinstance(words, list):
+        raise TypeError("Value must be list")
+    if n < 2 or n > 105:
+        raise ValueError("Value out of allowed range")
+    if len(words) != n:
+        raise ValueError("Number of elements in list not consistent with given number")
+    for word in words:
+        if not isinstance(word, str):
+            raise TypeError("All values in list must be string")
+        for letter in word:
+            if letter.islower():
+                raise ValueError("All letters must be uppercase")
+    start = Tree(words[0])
+    target = Tree(words[1])
+    words = words[1:]
+    queue = [start]
+    while queue:
+        while len(queue):
+            word_children(queue[0], words)
+            queue.extend(queue[0].children)
+            del queue[0]
+    path = start.shortest_path(target)
+    if len(path):
+        for i in range(len(path)):
+            path[i] = path[i].data
+        return len(path), path
+    return len(path)
+
+
+def word_children(parent, words):
+    for i in range(len(parent.data)):
+        for k in range(ord("A"), ord("Z") + 1):
+            new_word = parent.data[:i] + chr(k) + parent.data[i + 1:]
+            if new_word in words:
+                words.remove(new_word)
+                parent.children.append(Tree(new_word))
 
 
 def task():
@@ -76,4 +97,3 @@ def task():
 
 if __name__ == '__main__':
     task()
-

@@ -17,10 +17,10 @@ class MyTestCase(unittest.TestCase):
         self.assertRaises(TypeError, task.solve, 12, 8)
 
     def test_index_mismatch_1(self):
-        self.assertRaises(IndexError, task.solve, -5, [])
+        self.assertRaises(ValueError, task.solve, -5, [])
 
     def test_index_mismatch_2(self):
-        self.assertRaises(IndexError, task.solve, 3, [])
+        self.assertRaises(ValueError, task.solve, 3, [])
 
 
 if __name__ == '__main__':

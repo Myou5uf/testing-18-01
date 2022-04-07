@@ -14,11 +14,11 @@ from datetime import time, datetime
 def solve(n, entries):
     if not isinstance(n, int):
         raise TypeError("Value must be integer")
-    if not isinstance(words, list):
+    if not isinstance(entries, list):
         raise TypeError("Value must be list")
     if n < 1 or n > 100:
         raise ValueError("Value out of allowed range")
-    if len(words) != n:
+    if len(entries) != n:
         raise ValueError("Number of elements in list not consistent with given number")
     max_number = {
         'value': 0,
@@ -39,12 +39,11 @@ def solve(n, entries):
     timetable.sort()
     starts.sort()
     ends.sort()
-    print(ends)
     for time in timetable:
         if not (time in starts and time in ends):
             if time in starts:
                 number += 1
-                if number > max_number['value']:
+                if number >= max_number['value']:
                     max_number['value'] = number
                     max_number['start_time'] = time
             if time in ends:

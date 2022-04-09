@@ -21,8 +21,6 @@ def task(q):
             sum_p = numpy.sum([x for x in range(start,p+start)])
             sum_q = numpy.sum([x for x in range(p+start,p+start+q)])
             if sum_p == sum_q:
-                #print([x for x in range(start,p+start)])
-                #print([x for x in range(p+start,p+start+q)])
                 answers+=+1
             start+=1
     return answers

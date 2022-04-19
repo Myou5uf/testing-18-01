@@ -11,6 +11,8 @@
 # Input: 7 45 12 267 7 Output: one pair
 
 def countIdenticalCard(data):
+    data = list(
+        map(int, data.split(" ")))
     dict = {}
     for i in range(len(data)):
         if data[i] in dict.keys():
@@ -35,7 +37,7 @@ def countIdenticalCard(data):
         print("all different")
 
 
-inputData = list(
-    map(int, input("Введите 5 целых положительных чисел, не превосходящих 10^9 через пробел: ").split(" ")))
-countIdenticalCard(inputData)
+#inputData = list(
+#    map(int, input("Введите 5 целых положительных чисел, не превосходящих 10^9 через пробел: ").split(" ")))
+#countIdenticalCard(inputData)
 

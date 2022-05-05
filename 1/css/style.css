@@ -205,3 +205,8 @@ h6 {
     line-height: 20px;
     text-indent: 30px;
 }
+.img-custom-card {
+    width: 75%;
+    display: block;
+    margin: auto;
+}
